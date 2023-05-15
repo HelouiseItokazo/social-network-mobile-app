@@ -1,6 +1,7 @@
 import React from 'react';
 import {
     Button,
+    Pressable,
     StyleSheet,
     Text,
     TextInput,
@@ -12,16 +13,21 @@ const LoginScreen = ({ navigation }) => {
         <View style={styles.container}>
         
             <TextInput style={styles.input}
-                placeholder='Usuário'
-            />
+                placeholder='Usuário'/>
+
             <TextInput style={styles.input}
                 placeholder='Senha'
-            />
+                secureTextEntry/>
+
             <Button style={styles.button}
                 title='entrar'
-                onPress={() => navigation.replace('Home')}
-            />
-            <Text style={styles.text}>Criar conta</Text>
+                onPress={() => navigation.replace('Home')}/>
+            
+            <Pressable style={styles.text}
+                onPress={() => navigation.replace('Register')}>
+                <Text>Criar conta</Text>
+            </Pressable>
+
         </View>
     );
 };
@@ -41,13 +47,10 @@ const styles = StyleSheet.create({
         width: '80%'
     },
     button: {
-        backgroundColor: 555555,
-        margin: 10,
-        padding: 10,
-        width: '80%'
+   
     },
     text: {
-        textAlign: 'left',
+        
     }
 });
 
