@@ -10,7 +10,7 @@ import {
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from '../configs/firebase';
 
-const RegisterScreen = () => {
+const RegisterScreen = ({ navigation }) => {
     const [registerInformation, setRegisterInformation] = useState({
         email: '',
         emailConfirmation: '',
@@ -18,38 +18,69 @@ const RegisterScreen = () => {
         passwordConfirmation: ''
     });
 
+    const validateRegistration = async () => {
+        if (registerInformation.password !== registerInformation.passwordConfirmation) {
+            Alert.alert('As senhas não conferem!')
+            return;
+        }
+        createUserWithEmailAndPassword(
+            auth,
+            registerInformation.email,
+            registerInformation.password
+        )
+            .then(() => {
+                navigation.replace('Home')
+                setRegisterInformation({
+                    email: '',
+                    emailConfirmation: '',
+                    password: '',
+                    passwordConfirmation: ''
+                })
+            })
+            .catch((error) => Alert.alert(error.message));
+    };
+
+
+
     return (
-        <View style={style.container}>
-            <Text>Cadastro</Text>
-            <TextInput
-                placeholder='Informe seu e-mail' />
-            <TextInput
-                placeholder='Confirme seu e-mail' />
-            <TextInput
-                onChangeText={(value) => setRegisterInformation({
-                    ...registerInformation,
-                    email: value
-                })}
-                placeholder='Informe sua senha'
-                secureTextEntry 
-                value={registerInformation.email}/>
-            <TextInput
-                onChangeText={(value) => setRegisterInformation({
-                    ...registerInformation,
-                    emailConfirmation: value
-                })}
-                placeholder='Confirme sua senha'
-                secureTextEntry
-                value={registerInformation.emailConfirmation}/>
-            <Button
-                onPress={()=>{
-                    if(registerInformation.password !== registerInformation.passwordConfirmation){
-                        Alert.alert("Senhas não conferem!");
-                        return;
-                    }
-                }}
-                title='Cadastrar' />
-        </View>
+        <>
+            <View style={style.container}>
+                <Text>Cadastro</Text>
+                <TextInput
+                    onChangeText={(value) => setRegisterInformation({
+                        ...registerInformation,
+                        email: value
+                    })}
+                    placeholder='Informe seu e-mail'
+                    value={registerInformation.email} />
+                <TextInput
+                    onChangeText={(value) => setRegisterInformation({
+                        ...registerInformation,
+                        emailConfirmation: value
+                    })}
+                    placeholder='Confirme seu e-mail'
+                    value={registerInformation.emailConfirmation} />
+                <TextInput
+                    onChangeText={(value) => setRegisterInformation({
+                        ...registerInformation,
+                        password: value
+                    })}
+                    placeholder='Informe sua senha'
+                    secureTextEntry
+                    value={registerInformation.password} />
+                <TextInput
+                    onChangeText={(value) => setRegisterInformation({
+                        ...registerInformation,
+                        passwordConfirmation: value
+                    })}
+                    placeholder='Confirme sua senha'
+                    secureTextEntry
+                    value={registerInformation.passwordConfirmation} />
+                <Button
+                    onPress={() => validateRegistration}
+                    title='Cadastrar' />
+            </View>
+        </>
     );
 };
 

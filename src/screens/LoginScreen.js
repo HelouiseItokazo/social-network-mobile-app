@@ -5,6 +5,7 @@ import {
     StyleSheet,
     Text,
     TextInput,
+    TouchableOpacity,
     View
 } from 'react-native';
 
@@ -36,18 +37,18 @@ export default LoginScreen;
 
 const styles = StyleSheet.create({
     container: {
-        alignItems: 'center',
-        flex: 1,
-        justifyContent: 'center'
+ 
+        flex: 1
+     
     },
     input: {
-        backgroundColor: 555555,
+        backgroundColor: "#555555",
         margin: 10,
         padding: 10,
         width: '80%'
     },
     button: {
-   
+        backgroundColor: "#555555",
     },
     text: {
         

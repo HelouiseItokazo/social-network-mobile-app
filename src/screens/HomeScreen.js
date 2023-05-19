@@ -4,7 +4,6 @@ import {
     Text,
     View
 } from 'react-native';
-import { auth } from '../configs/firebase';
 
 const HomeScreen = ({ navigation }) => {
     return(
