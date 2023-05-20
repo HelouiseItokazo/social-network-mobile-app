@@ -1,32 +1,51 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
+    Alert,
     Button,
     Pressable,
     StyleSheet,
     Text,
     TextInput,
-    TouchableOpacity,
     View
 } from 'react-native';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../configs/firebase';
 
 const LoginScreen = ({ navigation }) => {
+    const [inputEmail, setInputEmail] = useState('');
+    const [inputPassword, setInputPassword] = useState('');
+
+    const login = () => {
+        signInWithEmailAndPassword(auth, inputEmail, inputPassword)
+        .then(() => {
+            navigation.replace('Home')
+        })
+        .catch((error) => Alert.alert(error.message)
+        )
+    };
+
+
     return (
         <View style={styles.container}>
         
             <TextInput style={styles.input}
-                placeholder='Usuário'/>
+                onChangeText={(value) => setInputEmail(value)}
+                placeholder='E-mail'
+                value={inputEmail}/>
 
             <TextInput style={styles.input}
+                onChangeText={(value) => setInputPassword(value)}
                 placeholder='Senha'
-                secureTextEntry/>
+                secureTextEntry
+                value={inputPassword}/>
 
             <Button style={styles.button}
                 title='entrar'
-                onPress={() => navigation.replace('Home')}/>
+                onPress={() => login()}/>
             
             <Pressable style={styles.text}
                 onPress={() => navigation.replace('Register')}>
-                <Text>Criar conta</Text>
+                <Text>Criar conta +</Text>
             </Pressable>
 
         </View>
@@ -36,22 +55,23 @@ const LoginScreen = ({ navigation }) => {
 export default LoginScreen;
 
 const styles = StyleSheet.create({
-    container: {
- 
-        flex: 1
-     
+    container: {      
+        backgroundColor: '#aaa69d',
+        flex: 1,
+        padding: 20,
     },
     input: {
-        backgroundColor: "#555555",
+        backgroundColor: '#f7f1e3',
         margin: 10,
         padding: 10,
         width: '80%'
     },
     button: {
-        backgroundColor: "#555555",
+        borderRadius: 8,
     },
     text: {
-        
+        padding: 10,
+        margin: 10
     }
 });
 

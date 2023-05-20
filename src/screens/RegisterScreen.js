@@ -40,27 +40,24 @@ const RegisterScreen = ({ navigation }) => {
             .catch((error) => Alert.alert(error.message));
     };
 
-
-
     return (
         <>
-            <View style={style.container}>
-                <Text>Cadastro</Text>
-                <TextInput
+            <View style={styles.container}>
+                <TextInput style={styles.input}
                     onChangeText={(value) => setRegisterInformation({
                         ...registerInformation,
                         email: value
                     })}
                     placeholder='Informe seu e-mail'
                     value={registerInformation.email} />
-                <TextInput
+                <TextInput style={styles.input}
                     onChangeText={(value) => setRegisterInformation({
                         ...registerInformation,
                         emailConfirmation: value
                     })}
                     placeholder='Confirme seu e-mail'
                     value={registerInformation.emailConfirmation} />
-                <TextInput
+                <TextInput style={styles.input}
                     onChangeText={(value) => setRegisterInformation({
                         ...registerInformation,
                         password: value
@@ -68,7 +65,7 @@ const RegisterScreen = ({ navigation }) => {
                     placeholder='Informe sua senha'
                     secureTextEntry
                     value={registerInformation.password} />
-                <TextInput
+                <TextInput style={styles.input}
                     onChangeText={(value) => setRegisterInformation({
                         ...registerInformation,
                         passwordConfirmation: value
@@ -76,9 +73,12 @@ const RegisterScreen = ({ navigation }) => {
                     placeholder='Confirme sua senha'
                     secureTextEntry
                     value={registerInformation.passwordConfirmation} />
-                <Button
-                    onPress={() => validateRegistration}
+                <Button style={styles.button}
+                    onPress={() => validateRegistration()}
                     title='Cadastrar' />
+                <Button style={styles.button}
+                    onPress={() => navigation.replace('Login')}
+                    title='Voltar' />
             </View>
         </>
     );
@@ -86,11 +86,21 @@ const RegisterScreen = ({ navigation }) => {
 
 export default RegisterScreen;
 
-const style = StyleSheet.create({
-    container: {
-        alignItems: 'center',
+const styles = StyleSheet.create({
+    container: {      
+        backgroundColor: '#aaa69d',
         flex: 1,
-        justifyContent: 'center'
+        padding: 20,
+    },
+    input: {
+        backgroundColor: '#f7f1e3',
+        margin: 10,
+        padding: 10,
+        width: '80%'
+    },
+    button: {
+        borderRadius: 8,
+        margin: 50
     }
 });
 
